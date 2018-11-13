@@ -10,6 +10,8 @@
 
 using namespace std;
 
+LARGE_INTEGER start, endd, freq;
+
 void primeThreading(int num, int count, vector<int>& v) {
 	thread** th;
 
@@ -19,9 +21,11 @@ void primeThreading(int num, int count, vector<int>& v) {
 		th[i] = new thread(procThread, i + 1, num, &v);
 	}
 
+	QueryPerformanceCounter(&start);
 	for (int i = 0; i < count; i++) {
 		th[i]->join();
 	}
+	QueryPerformanceCounter(&endd);
 
 	for (int i = 0; i < count; i++) {
 		delete th[i];
@@ -47,27 +51,28 @@ int main() {
 	bool isPrime = false;
 	vector<int> v;
 
-	LARGE_INTEGER start, end, freq;
-
 	QueryPerformanceFrequency(&freq);
-	QueryPerformanceCounter(&start);
 
 	switch (type) {
 	case 1:
+		QueryPerformanceCounter(&start);
 		for (int i = 2; i < n; i++) {
 			isPrime = prime(i);
 			if (isPrime) {
 				v.push_back(i);
 			}
 		}
+		QueryPerformanceCounter(&endd);
 		break;
 	case 2:
+		QueryPerformanceCounter(&start);
 		for (int i = 2; i < n; i++) {
 			isPrime = primeUpgrade(i);
 			if (isPrime) {
 				v.push_back(i);
 			}
 		}
+		QueryPerformanceCounter(&endd);
 		break;
 	case 3:
 		int thread;
@@ -77,9 +82,7 @@ int main() {
 		break;
 	}
 
-	QueryPerformanceCounter(&end);
-
-	double ellapse = double((double(end.QuadPart) - double(start.QuadPart)) / double(freq.QuadPart));
+	double ellapse = double((double(endd.QuadPart) - double(start.QuadPart)) / double(freq.QuadPart));
 	printf("elapsed time : %.7lf sec\n", ellapse);
 
 	char ch;
