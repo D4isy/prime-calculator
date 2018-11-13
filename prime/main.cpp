@@ -33,15 +33,15 @@ void primeThreading(int num, int count, vector<int>& v) {
 int main() {
 	int n;
 
-	cout << "소수 구하기 (1~n)" << endl;
-	cout << "n 설정 > ";
+	cout << "Prime Calculator (1~n)" << endl;
+	cout << "n > ";
 	cin >> n;
 
 	int type;
-	cout << "[1] 일반 소수 구하기" << endl;
-	cout << "[2] 업그레이드된 소수 구하기" << endl;
-	cout << "[3] 멀티스레딩 소수 구하기" << endl;
-	cout << "설정 > ";
+	cout << "[1] general calculate" << endl;
+	cout << "[2] upgrade calculate" << endl;
+	cout << "[3] multithreading calculate" << endl;
+	cout << "type > ";
 	cin >> type;
 
 	bool isPrime = false;
@@ -71,7 +71,7 @@ int main() {
 		break;
 	case 3:
 		int thread;
-		cout << "스레드 갯수 > ";
+		cout << "thread count > ";
 		cin >> thread;
 		primeThreading(n, thread, v);
 		break;
@@ -80,10 +80,11 @@ int main() {
 	QueryPerformanceCounter(&end);
 
 	double ellapse = double((double(end.QuadPart) - double(start.QuadPart)) / double(freq.QuadPart));
-	printf("경과시간 : %.7lf 초가 걸렸습니다.\n", ellapse);
+	printf("elapsed time : %.7lf sec\n", ellapse);
 
 	char ch;
-	cout << "출력하시겠습니까? ";
+	cout << "Do you want print? (y, n)" << endl;
+	cout << " > ";
 	cin >> ch;
 
 	if (ch == 'y' || ch == 'Y') {
