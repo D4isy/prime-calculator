@@ -22,7 +22,7 @@ bool prime(int num) {
 }
 
 bool primeUpgrade(int num) {
-	for (int i = 2; i < sqrt(num); i++) {
+	for (int i = 2; i <= sqrt(num); i++) {
 		if (num % i == 0) {
 			return false;
 		}
@@ -41,7 +41,7 @@ void procThread(int id, int max, void* v) {
 		num = src;
 		src++;
 		mtx.unlock();
-		for (int i = 2; i < sqrt(num); i++) {
+		for (int i = 2; i <= sqrt(num); i++) {
 			if (num % i == 0) {
 				check = false;
 				break;
